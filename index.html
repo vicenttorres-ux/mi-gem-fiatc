@@ -5,16 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FIATC Assistant - IA Corporativa</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <script>
-        // Configuración de colores corporativos de FIATC
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        fiatcBlue: '#0055A5', // Azul oficial FIATC
-                        fiatcLightBlue: '#e6eff7',
-                        fiatcDark: '#1d1d1b'
+                        fiatcBlue: '#0055A5', // Azul oficial corporativo
+                        fiatcDark: '#1d1d1b',
+                        fiatcLight: '#f4f8fc'
                     }
                 }
             }
@@ -22,108 +21,106 @@
     </script>
     <style>
         body { font-family: 'Inter', sans-serif; }
-        .bg-fiatc-gradient { 
-            background: linear-gradient(180deg, #f0f4f8 0%, #ffffff 100%); 
-        }
-        .btn-fiatc {
-            background-color: #0055A5;
-            transition: all 0.3s ease;
-        }
-        .btn-fiatc:hover {
-            background-color: #003d7a;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 85, 165, 0.3);
-        }
+        .fiatc-gradient { background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%); }
+        .btn-shadow { box-shadow: 0 10px 25px -5px rgba(0, 85, 165, 0.4); }
     </style>
 </head>
-<body class="bg-fiatc-gradient min-h-screen">
+<body class="fiatc-gradient min-h-screen flex flex-col">
 
     <!-- Navbar -->
-    <nav class="p-6 bg-white border-b border-gray-100 shadow-sm">
+    <nav class="p-5 bg-white border-b border-gray-200 shadow-sm sticky top-0 z-50">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-4">
-                <!-- LOGO FIATC -->
-                <!-- He puesto un logo oficial de FIATC, si quieres usar el tuyo cambia el src -->
-                <img src="img src="logo-fiatc.png" alt="Logo FIATC" class="h-10">
-                <div class="h-6 w-[1px] bg-gray-300 mx-2"></div>
-                <span class="text-xl font-semibold text-fiatcBlue tracking-tight">Assistant</span>
+                <!-- Tu logo subido al repositorio -->
+                <img src="logo-fiatc.png" alt="FIATC Logo" class="h-10">
+                <div class="h-6 w-[1px] bg-gray-200"></div>
+                <span class="text-lg font-bold text-fiatcBlue tracking-tight uppercase italic">Assistant</span>
+            </div>
+            <div class="hidden sm:block">
+                <span class="text-[10px] font-bold text-gray-400 tracking-[0.2em] uppercase">Uso Interno • Workspace AI</span>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Content -->
-    <main class="max-w-5xl mx-auto px-6 pt-24 pb-20 text-center">
-        <div class="inline-block px-4 py-1 mb-8 text-xs font-bold tracking-[0.2em] text-fiatcBlue uppercase border-b-2 border-fiatcBlue">
-            Inteligencia Artificial al servicio del equipo
+    <!-- Contenido Principal -->
+    <main class="flex-grow max-w-5xl mx-auto px-6 pt-20 pb-20 text-center">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 mb-8 text-[10px] font-bold tracking-widest text-fiatcBlue uppercase bg-fiatcLight rounded border border-blue-100">
+            Inteligencia Artificial Especializada
         </div>
         
-        <h1 class="text-5xl md:text-6xl font-extrabold text-fiatcDark mb-8 leading-tight">
-            Optimiza tu día a día con el <br><span class="text-fiatcBlue italic">nuevo GEM personalizado</span>
+        <h1 class="text-5xl md:text-6xl font-extrabold text-fiatcDark mb-8 leading-[1.1] tracking-tight">
+            Toda la potencia de Gemini <br><span class="text-fiatcBlue">adaptada a FIATC</span>
         </h1>
 
-        <p class="text-lg text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed">
-            Accede a la potencia de Gemini configurado específicamente con el conocimiento y los procesos de FIATC.
+        <p class="text-lg text-gray-500 mb-12 max-w-2xl mx-auto leading-relaxed">
+            Accede a tu asistente inteligente diseñado para optimizar procesos, redactar documentos y resolver consultas técnicas en segundos.
         </p>
 
         <!-- BOTÓN PRINCIPAL -->
         <div class="flex flex-col items-center gap-6">
-            <button onclick="abrirGem()" class="btn-fiatc text-white px-12 py-5 rounded-lg font-bold text-xl flex items-center gap-4">
-                <span>INICIAR ASISTENTE</span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            <button onclick="abrirGem()" class="bg-fiatcBlue hover:bg-blue-800 text-white px-12 py-5 rounded font-bold text-xl transition-all transform hover:-translate-y-1 btn-shadow flex items-center gap-4">
+                <span>ABRIR ASISTENTE</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
             </button>
-            <div class="flex items-center gap-2 text-sm text-gray-400">
+            <p class="text-[11px] text-gray-400 flex items-center gap-2 uppercase tracking-widest font-semibold">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                Se abrirá en una ventana independiente para mayor comodidad.
-            </div>
+                Se abrirá una ventana flotante para tu comodidad
+            </p>
         </div>
 
-        <!-- Secciones informativas -->
-        <div class="mt-32 grid md:grid-cols-3 gap-8 text-left">
-            <div class="bg-white p-8 border-t-4 border-fiatcBlue shadow-lg rounded-b-lg">
-                <h3 class="font-bold text-fiatcDark mb-3 uppercase text-sm tracking-wider">Especialización</h3>
-                <p class="text-sm text-gray-500 leading-relaxed">Entrenado para entender el contexto asegurador y las necesidades específicas de nuestro equipo.</p>
+        <!-- Secciones de Valor -->
+        <div class="mt-28 grid md:grid-cols-3 gap-8 text-left">
+            <div class="bg-white p-8 border-l-4 border-fiatcBlue shadow-sm">
+                <h3 class="font-bold text-fiatcDark mb-3 uppercase text-xs tracking-widest">Productividad</h3>
+                <p class="text-sm text-gray-500 leading-relaxed italic">"Genera resúmenes de actas o propuestas comerciales en tiempo real."</p>
             </div>
-            <div class="bg-white p-8 border-t-4 border-gray-300 shadow-lg rounded-b-lg">
-                <h3 class="font-bold text-fiatcDark mb-3 uppercase text-sm tracking-wider">Eficiencia</h3>
-                <p class="text-sm text-gray-500 leading-relaxed">Reducción de tiempos en tareas de análisis, resumen de documentos y redacción de textos corporativos.</p>
+            <div class="bg-white p-8 border-l-4 border-gray-300 shadow-sm">
+                <h3 class="font-bold text-fiatcDark mb-3 uppercase text-xs tracking-widest">Conocimiento</h3>
+                <p class="text-sm text-gray-500 leading-relaxed italic">"Consulta normativas o procesos internos con lenguaje natural."</p>
             </div>
-            <div class="bg-white p-8 border-t-4 border-gray-300 shadow-lg rounded-b-lg">
-                <h3 class="font-bold text-fiatcDark mb-3 uppercase text-sm tracking-wider">Privacidad</h3>
-                <p class="text-sm text-gray-500 leading-relaxed">Recuerda no compartir datos personales sensibles. La IA es una herramienta de soporte profesional.</p>
+            <div class="bg-white p-8 border-l-4 border-gray-300 shadow-sm">
+                <h3 class="font-bold text-fiatcDark mb-3 uppercase text-xs tracking-widest">Seguridad</h3>
+                <p class="text-sm text-gray-500 leading-relaxed italic">"Entorno profesional y seguro para el tratamiento de información corporativa."</p>
             </div>
         </div>
     </main>
 
-    <footer class="bg-fiatcDark py-12 text-center text-white">
-        <img src="https://www.fiatc.es/images/fiatc-logo.png" alt="FIATC" class="h-8 mx-auto mb-6 brightness-0 invert opacity-50">
-        <p class="text-[10px] tracking-[0.3em] font-light opacity-60 uppercase">FIATC Seguros • Herramienta de Inteligencia Artificial de Uso Interno</p>
+    <!-- Footer -->
+    <footer class="bg-white py-12 text-center border-t border-gray-100">
+        <div class="flex justify-center mb-6">
+            <img src="logo-fiatc.png" alt="FIATC" class="h-6 opacity-30 grayscale">
+        </div>
+        <p class="text-[10px] tracking-[0.3em] font-bold text-gray-400 uppercase">© 2024 FIATC MUTUA DE SEGUROS • CORPORATE AI TOOL</p>
     </footer>
 
-    <!-- SCRIPT DE LA VENTANA FLOTANTE -->
+    <!-- SCRIPT PARA LA VENTANA FLOTANTE -->
     <script>
         function abrirGem() {
             const url = "https://gemini.google.com/gem/1LH9YAceFOV7GT3i0LDKMOHrR43rloiE9?usp=sharing";
-            const width = 550;
-            const height = 850;
+            
+            // Dimensiones para que parezca una herramienta de escritorio
+            const width = 580;
+            const height = 820;
+            
+            // Centrado en pantalla
             const left = (window.screen.width / 2) - (width / 2);
             const top = (window.screen.height / 2) - (height / 2);
             
             const popup = window.open(
                 url, 
-                "AsistenteFIATC", 
+                "FIATC_AI_Assistant", 
                 `width=${width},height=${height},top=${top},left=${left},status=no,menubar=no,toolbar=no,scrollbars=yes,resizable=yes`
             );
 
             if (!popup) {
-                alert("Por favor, permite las ventanas emergentes en tu navegador para lanzar el asistente.");
+                alert("Atención: El navegador ha bloqueado la ventana emergente. Por favor, permítelas para poder usar el asistente.");
             }
         }
     </script>
 
 </body>
 </html>
-
