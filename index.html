@@ -11,7 +11,7 @@
             theme: {
                 extend: {
                     colors: {
-                        fiatcBlue: '#0055A5', // Azul oficial corporativo
+                        fiatcBlue: '#0055A5',
                         fiatcDark: '#1d1d1b',
                         fiatcLight: '#f4f8fc'
                     }
@@ -22,7 +22,6 @@
     <style>
         body { font-family: 'Inter', sans-serif; }
         .fiatc-gradient { background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%); }
-        .btn-shadow { box-shadow: 0 10px 25px -5px rgba(0, 85, 165, 0.4); }
     </style>
 </head>
 <body class="fiatc-gradient min-h-screen flex flex-col">
@@ -31,8 +30,8 @@
     <nav class="p-5 bg-white border-b border-gray-200 shadow-sm sticky top-0 z-50">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-4">
-                <!-- Tu logo subido al repositorio -->
-                <img src="logo-fiatc.png" alt="FIATC Logo" class="h-10">
+                <!-- HEMOS USADO ./ PARA ASEGURAR LA RUTA -->
+                <img src="./logo-fiatc.png" alt="FIATC Logo" class="h-10" onerror="this.src='https://placehold.co/200x80/0055A5/white?text=FIATC+Assistant'">
                 <div class="h-6 w-[1px] bg-gray-200"></div>
                 <span class="text-lg font-bold text-fiatcBlue tracking-tight uppercase italic">Assistant</span>
             </div>
@@ -48,17 +47,16 @@
             Inteligencia Artificial Especializada
         </div>
         
-        <h1 class="text-5xl md:text-6xl font-extrabold text-fiatcDark mb-8 leading-[1.1] tracking-tight">
+        <h1 class="text-5xl md:text-6xl font-extrabold text-fiatcDark mb-8 leading-[1.1] tracking-tight text-balance">
             Toda la potencia de Gemini <br><span class="text-fiatcBlue">adaptada a FIATC</span>
         </h1>
 
         <p class="text-lg text-gray-500 mb-12 max-w-2xl mx-auto leading-relaxed">
-            Accede a tu asistente inteligente diseñado para optimizar procesos, redactar documentos y resolver consultas técnicas en segundos.
+            Tu asistente inteligente diseñado para optimizar procesos y resolver consultas técnicas en segundos.
         </p>
 
-        <!-- BOTÓN PRINCIPAL -->
         <div class="flex flex-col items-center gap-6">
-            <button onclick="abrirGem()" class="bg-fiatcBlue hover:bg-blue-800 text-white px-12 py-5 rounded font-bold text-xl transition-all transform hover:-translate-y-1 btn-shadow flex items-center gap-4">
+            <button onclick="abrirGem()" class="bg-fiatcBlue hover:bg-blue-800 text-white px-12 py-5 rounded font-bold text-xl transition-all transform hover:-translate-y-1 shadow-xl shadow-blue-200 flex items-center gap-4 uppercase tracking-wide">
                 <span>ABRIR ASISTENTE</span>
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -68,57 +66,42 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                Se abrirá una ventana flotante para tu comodidad
+                Se abrirá en una ventana independiente
             </p>
         </div>
 
-        <!-- Secciones de Valor -->
-        <div class="mt-28 grid md:grid-cols-3 gap-8 text-left">
+        <div class="mt-28 grid md:grid-cols-3 gap-8 text-left text-pretty">
             <div class="bg-white p-8 border-l-4 border-fiatcBlue shadow-sm">
                 <h3 class="font-bold text-fiatcDark mb-3 uppercase text-xs tracking-widest">Productividad</h3>
-                <p class="text-sm text-gray-500 leading-relaxed italic">"Genera resúmenes de actas o propuestas comerciales en tiempo real."</p>
+                <p class="text-sm text-gray-500 leading-relaxed italic">"Genera resúmenes o propuestas comerciales en tiempo real."</p>
             </div>
             <div class="bg-white p-8 border-l-4 border-gray-300 shadow-sm">
                 <h3 class="font-bold text-fiatcDark mb-3 uppercase text-xs tracking-widest">Conocimiento</h3>
-                <p class="text-sm text-gray-500 leading-relaxed italic">"Consulta normativas o procesos internos con lenguaje natural."</p>
+                <p class="text-sm text-gray-500 leading-relaxed italic">"Consulta procesos internos con lenguaje natural."</p>
             </div>
             <div class="bg-white p-8 border-l-4 border-gray-300 shadow-sm">
                 <h3 class="font-bold text-fiatcDark mb-3 uppercase text-xs tracking-widest">Seguridad</h3>
-                <p class="text-sm text-gray-500 leading-relaxed italic">"Entorno profesional y seguro para el tratamiento de información corporativa."</p>
+                <p class="text-sm text-gray-500 leading-relaxed italic">"Entorno seguro para información corporativa."</p>
             </div>
         </div>
     </main>
 
-    <!-- Footer -->
     <footer class="bg-white py-12 text-center border-t border-gray-100">
         <div class="flex justify-center mb-6">
-            <img src="logo-fiatc.png" alt="FIATC" class="h-6 opacity-30 grayscale">
+            <!-- Footer logo con el mismo nombre -->
+            <img src="./logo-fiatc.png" alt="FIATC" class="h-6 opacity-30 grayscale" onerror="this.style.display='none'">
         </div>
         <p class="text-[10px] tracking-[0.3em] font-bold text-gray-400 uppercase">© 2024 FIATC MUTUA DE SEGUROS • CORPORATE AI TOOL</p>
     </footer>
 
-    <!-- SCRIPT PARA LA VENTANA FLOTANTE -->
     <script>
         function abrirGem() {
             const url = "https://gemini.google.com/gem/1LH9YAceFOV7GT3i0LDKMOHrR43rloiE9?usp=sharing";
-            
-            // Dimensiones para que parezca una herramienta de escritorio
             const width = 580;
             const height = 820;
-            
-            // Centrado en pantalla
             const left = (window.screen.width / 2) - (width / 2);
             const top = (window.screen.height / 2) - (height / 2);
-            
-            const popup = window.open(
-                url, 
-                "FIATC_AI_Assistant", 
-                `width=${width},height=${height},top=${top},left=${left},status=no,menubar=no,toolbar=no,scrollbars=yes,resizable=yes`
-            );
-
-            if (!popup) {
-                alert("Atención: El navegador ha bloqueado la ventana emergente. Por favor, permítelas para poder usar el asistente.");
-            }
+            window.open(url, "FIATC_AI_Assistant", `width=${width},height=${height},top=${top},left=${left},status=no,menubar=no,toolbar=no,scrollbars=yes,resizable=yes`);
         }
     </script>
 
