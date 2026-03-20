@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Seguros & FIATC Assistant by Jirada</title>
+    <title>FIATC Assistant by Jirada | Inteligencia Estratégica</title>
     
     <!-- Tailwind CSS y Fuentes -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -31,25 +31,25 @@
     <style>
         body { font-family: 'Inter', sans-serif; }
         .chart-container { position: relative; width: 100%; max-width: 800px; margin: auto; height: 300px; }
-        @media (min-width: 768px) { .chart-container { height: 380px; } }
+        @media (min-width: 768px) { .chart-container { height: 350px; } }
         
-        /* Estilos del Microsite Assistant */
-        .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.3); }
+        /* Animaciones para el Hero Superior */
         .fade-in { animation: fadeIn 0.8s ease-out forwards; opacity: 0; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         .delay-1 { animation-delay: 0.2s; }
         .delay-2 { animation-delay: 0.4s; }
         
-        .mesh-bg {
+        .hero-mesh {
+            background-color: #ffffff;
             background-image: 
-                radial-gradient(at 0% 0%, rgba(0, 85, 165, 0.05) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(0, 85, 165, 0.02) 0px, transparent 50%);
+                radial-gradient(at 0% 0%, rgba(0, 51, 160, 0.05) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(0, 163, 224, 0.08) 0px, transparent 50%);
         }
     </style>
 </head>
-<body class="bg-background text-slate-800 antialiased mesh-bg">
+<body class="bg-background text-slate-800 antialiased">
 
-    <!-- Navegación Unificada -->
+    <!-- Navegación -->
     <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-md border-b border-slate-200 z-50 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
@@ -59,97 +59,29 @@
                     <img src="logo-jirada.png" alt="Jirada" class="h-5 hidden md:block">
                 </div>
                 <div class="hidden lg:flex items-center space-x-6 text-sm font-semibold text-slate-500">
+                    <a href="#asistente-ia" class="text-primary font-bold italic">Asistente IA</a>
                     <a href="#mercado" class="hover:text-primary transition-colors">Mercado Global</a>
                     <a href="#categorias" class="hover:text-primary transition-colors">Categorías</a>
                     <a href="#fiatc" class="hover:text-primary transition-colors">Análisis FIATC</a>
-                    <a href="#asistente-ia" class="bg-primary text-white px-4 py-2 rounded-full hover:bg-blue-800 transition-all shadow-lg shadow-blue-100 italic">Asistente IA</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <main class="pt-24">
-        <!-- HEADER DASHBOARD -->
-        <header class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 text-center">
-            <h1 class="text-4xl md:text-5xl font-extrabold text-primary mb-4">Ecosistema de Seguros en España</h1>
-            <p class="text-lg text-slate-500 max-w-3xl mx-auto">Análisis de datos del mercado y visión estratégica de FIATC.</p>
-        </header>
-
-        <!-- SECCIÓN 1: MERCADO GLOBAL (DASHBOARD) -->
-        <section id="mercado" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 scroll-mt-24">
-            <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8">
-                <h2 class="text-2xl font-bold mb-6">Visión General del Mercado</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-                    <div class="bg-blue-50 p-6 rounded-xl border border-blue-100">
-                        <div class="text-xs font-bold text-blue-600 uppercase mb-1">Volumen Total Primas</div>
-                        <div class="text-4xl font-bold">€64.6B</div>
-                    </div>
-                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-100">
-                        <div class="text-xs font-bold text-slate-500 uppercase mb-1">Peso en el PIB</div>
-                        <div class="text-4xl font-bold">5.3%</div>
-                    </div>
-                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-100">
-                        <div class="text-xs font-bold text-slate-500 uppercase mb-1">Ramo No Vida</div>
-                        <div class="text-4xl font-bold">61%</div>
-                    </div>
-                </div>
-                <div class="chart-container">
-                    <canvas id="marketShareChart"></canvas>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECCIÓN 2: CATEGORÍAS (DASHBOARD INTERACTIVO) -->
-        <section id="categorias" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 scroll-mt-24">
-            <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8">
-                <h2 class="text-2xl font-bold mb-8 text-center">Uso y Adopción por Categoría</h2>
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                    <div class="lg:col-span-4 space-y-2" id="category-buttons"></div>
-                    <div class="lg:col-span-8 bg-slate-50 rounded-xl border border-slate-200 p-8 min-h-[300px]" id="category-details"></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECCIÓN 3: ANÁLISIS FIATC -->
-        <section id="fiatc" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20 scroll-mt-24">
-            <div class="bg-gradient-to-br from-[#0033a0] to-[#001f60] rounded-2xl p-8 md:p-12 text-white">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10">
-                    <h2 class="text-3xl font-bold">Enfoque FIATC Seguros</h2>
-                    <div class="bg-white/10 px-4 py-2 rounded-lg text-sm font-bold border border-white/20">Primas: > €850 Millones</div>
-                </div>
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                    <div class="space-y-6">
-                        <p class="text-blue-100 text-lg">Mutua multirramo líder con infraestructura propia de salud (Clínica Diagonal), con un fuerte enfoque en calidad asistencial y mediación profesional.</p>
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="bg-white/5 p-4 rounded-xl border border-white/10">
-                                <div class="text-[10px] uppercase font-bold opacity-60">Red Comercial</div>
-                                <div class="text-2xl font-bold">+5.000 Mediadores</div>
-                            </div>
-                            <div class="bg-white/5 p-4 rounded-xl border border-white/10">
-                                <div class="text-[10px] uppercase font-bold opacity-60">Posición</div>
-                                <div class="text-2xl font-bold">Top 20 España</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-white rounded-xl p-4 shadow-2xl chart-container !h-[250px]">
-                        <canvas id="fiatcGrowthChart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECCIÓN 4: EL ASISTENTE IA (LO QUE ME HAS PASADO) -->
-        <section id="asistente-ia" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20 scroll-mt-24">
-            <div class="relative overflow-hidden rounded-[3rem] bg-white border border-slate-200 shadow-2xl py-20 px-6 text-center">
-                <!-- Decoración -->
-                <div class="absolute -top-24 -right-24 w-96 h-96 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-50"></div>
+    <main>
+        <!-- SECCIÓN 1: EL ASISTENTE IA (AHORA ARRIBA - HERO) -->
+        <section id="asistente-ia" class="hero-mesh min-h-[90vh] flex items-center pt-24 pb-16 px-4 sm:px-6 lg:px-8 border-b border-slate-100">
+            <div class="max-w-5xl w-full mx-auto text-center relative">
+                <!-- Decoración de fondo -->
+                <div class="absolute -top-24 -right-24 w-96 h-96 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-40"></div>
+                <div class="absolute -bottom-24 -left-24 w-72 h-72 bg-indigo-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
                 
-                <div class="max-w-4xl w-full mx-auto relative z-10">
-                    <div class="fade-in inline-flex items-center gap-2 px-3 py-1 bg-blue-50 rounded-full text-[10px] font-bold text-blue-700 uppercase tracking-[0.2em] mb-10">
+                <div class="relative z-10">
+                    <div class="fade-in inline-flex items-center gap-2 px-3 py-1 bg-blue-50 rounded-full text-[10px] font-bold text-blue-700 uppercase tracking-[0.2em] mb-10 border border-blue-100 shadow-sm">
                         Estrategia impulsada por IA
                     </div>
 
-                    <h1 class="fade-in delay-1 text-5xl md:text-7xl font-extrabold text-slate-900 leading-[1.1] tracking-tighter mb-10">
+                    <h1 class="fade-in delay-1 text-6xl md:text-8xl font-extrabold text-slate-900 leading-[1.1] tracking-tighter mb-10">
                         FIATC Assistant <br>
                         <span class="text-primary italic">by Jirada</span>
                     </h1>
@@ -159,53 +91,142 @@
                         <span class="text-slate-900 font-bold">El consultor experto</span> que conoce nuestro ADN mejor que nadie para guiar su estrategia.
                     </p>
                     
-                    <button onclick="abrirGem()" class="fade-in delay-2 bg-primary hover:bg-blue-800 text-white px-12 py-5 rounded-2xl font-bold text-xl transition-all transform hover:-translate-y-1 shadow-2xl flex items-center gap-4 mx-auto group">
+                    <button onclick="abrirGem()" class="fade-in delay-2 bg-primary hover:bg-blue-800 text-white px-12 py-5 rounded-3xl font-bold text-xl transition-all transform hover:-translate-y-1 shadow-2xl shadow-blue-200 flex items-center gap-4 mx-auto group">
                         <span>INICIAR CONSULTORÍA</span>
                         <div class="bg-blue-600 p-1 rounded-lg group-hover:translate-x-1 transition-transform">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
                         </div>
                     </button>
-                    <p class="fade-in delay-2 mt-6 text-[10px] text-slate-400 uppercase tracking-[0.3em] font-bold italic">Acceso exclusivo vía Google Gemini</p>
+                    <p class="fade-in delay-2 mt-8 text-[10px] text-slate-400 uppercase tracking-[0.3em] font-bold italic">Acceso exclusivo vía Google Gemini • Workspace AI</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 2: MERCADO GLOBAL (DASHBOARD) -->
+        <section id="mercado" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-extrabold text-slate-900 mb-2">Visión del Mercado Asegurador</h2>
+                <p class="text-slate-500">Contexto macroeconómico del sector en España.</p>
+            </div>
+            
+            <div class="bg-white rounded-3xl shadow-sm border border-slate-100 p-8 md:p-12">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                    <div class="bg-blue-50/50 p-8 rounded-2xl border border-blue-100">
+                        <div class="text-[10px] font-bold text-blue-600 uppercase tracking-widest mb-2">Volumen Total Primas</div>
+                        <div class="text-4xl font-black text-slate-900">€64.6B</div>
+                        <div class="text-xs text-slate-500 mt-2">+4.8% crecimiento anual</div>
+                    </div>
+                    <div class="bg-slate-50 p-8 rounded-2xl border border-slate-100">
+                        <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Peso en el PIB</div>
+                        <div class="text-4xl font-black text-slate-900">5.3%</div>
+                        <div class="text-xs text-slate-500 mt-2">Impacto macro en España</div>
+                    </div>
+                    <div class="bg-slate-50 p-8 rounded-2xl border border-slate-100">
+                        <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Mix No Vida</div>
+                        <div class="text-4xl font-black text-slate-900">61%</div>
+                        <div class="text-xs text-slate-500 mt-2">Dominio de Salud y Autos</div>
+                    </div>
+                </div>
+                
+                <div class="max-w-3xl mx-auto">
+                    <h3 class="text-center font-bold text-slate-400 uppercase text-[10px] tracking-widest mb-8 text-pretty">Distribución del Negocio: Vida vs No Vida</h3>
+                    <div class="chart-container">
+                        <canvas id="marketShareChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: CATEGORÍAS (DASHBOARD INTERACTIVO) -->
+        <section id="categorias" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20 scroll-mt-24">
+            <div class="bg-white rounded-3xl shadow-sm border border-slate-100 p-8 md:p-12">
+                <h2 class="text-2xl font-bold mb-10 text-center uppercase tracking-tighter italic">Adopción por Categoría</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                    <div class="lg:col-span-4 space-y-3" id="category-buttons"></div>
+                    <div class="lg:col-span-8 bg-slate-50/50 rounded-2xl border border-slate-100 p-8 flex flex-col justify-center min-h-[300px]" id="category-details">
+                        <!-- Se llena vía JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 4: ANÁLISIS FIATC -->
+        <section id="fiatc" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24 scroll-mt-24 text-pretty">
+            <div class="bg-gradient-to-br from-[#0033a0] to-[#001f60] rounded-[3rem] p-10 md:p-16 text-white shadow-2xl">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 border-b border-white/10 pb-8">
+                    <div>
+                        <h2 class="text-4xl font-black mb-2 uppercase tracking-tighter italic">Enfoque Estratégico FIATC</h2>
+                        <p class="text-blue-200">Visión de negocio y trayectoria de la Mutua.</p>
+                    </div>
+                    <div class="mt-4 md:mt-0 bg-white/10 px-6 py-3 rounded-full text-sm font-bold border border-white/20">
+                        Cifra de Negocio: > €850M
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    <div class="space-y-8">
+                        <p class="text-blue-100 text-xl leading-relaxed">
+                            Liderazgo basado en la calidad asistencial y la mediación profesional, con la infraestructura hospitalaria de referencia (Clínica Diagonal) como eje diferencial.
+                        </p>
+                        <div class="grid grid-cols-2 gap-6">
+                            <div class="bg-white/5 p-6 rounded-2xl border border-white/10">
+                                <div class="text-[9px] uppercase font-black opacity-50 tracking-[0.2em] mb-2">Agentes y Corredores</div>
+                                <div class="text-3xl font-bold">+5.000</div>
+                            </div>
+                            <div class="bg-white/5 p-6 rounded-2xl border border-white/10">
+                                <div class="text-[9px] uppercase font-black opacity-50 tracking-[0.2em] mb-2">Cuota de Mercado</div>
+                                <div class="text-3xl font-bold">Top 20</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-2xl p-6 shadow-2xl chart-container !h-[280px]">
+                        <canvas id="fiatcGrowthChart"></canvas>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- FOOTER UNIFICADO -->
-    <footer class="p-12 text-center bg-white border-t border-slate-100">
-        <div class="flex justify-center items-center gap-6 opacity-30 grayscale mb-6">
-            <img src="logo-fiatc.png" alt="FIATC" class="h-5">
-            <img src="logo-jirada.png" alt="Jirada" class="h-4">
+    <!-- FOOTER -->
+    <footer class="p-16 text-center bg-white border-t border-slate-100">
+        <div class="flex justify-center items-center gap-8 opacity-40 grayscale mb-8 transition-all hover:opacity-100 hover:grayscale-0">
+            <img src="logo-fiatc.png" alt="FIATC" class="h-6">
+            <img src="logo-jirada.png" alt="Jirada" class="h-5">
         </div>
-        <p class="text-[9px] tracking-[0.5em] font-bold text-slate-400 uppercase">
+        <p class="text-[10px] tracking-[0.5em] font-bold text-slate-400 uppercase">
             © 2024 FIATC Mutua de Seguros x Jirada Digital Strategy
         </p>
     </footer>
 
-    <!-- SCRIPTS UNIFICADOS -->
+    <!-- SCRIPTS -->
     <script>
-        // --- DATA PARA DASHBOARD ---
+        // --- DATA DASHBOARD ---
         const categoryData = [
-            { id: 'autos', title: 'Autos', volume: 11.5, color: '#3b82f6', desc: 'Ramo obligatorio y altamente competitivo en España.' },
-            { id: 'salud', title: 'Salud', volume: 10.5, color: '#10b981', desc: 'Crecimiento récord impulsado por la sanidad privada.' },
-            { id: 'hogar', title: 'Hogar', volume: 8.2, color: '#f59e0b', desc: 'Vinculado fuertemente a la cartera hipotecaria bancaria.' },
-            { id: 'vida', title: 'Vida', volume: 25.1, color: '#8b5cf6', desc: 'Segmento clave de ahorro e inversión para las familias.' }
+            { id: 'autos', title: 'Autos', volume: 11.5, color: '#3b82f6', desc: 'Ramo obligatorio con alta competencia y digitalización del siniestro.' },
+            { id: 'salud', title: 'Salud', volume: 10.5, color: '#10b981', desc: 'Segmento clave para FIATC. Gran crecimiento por saturación de la sanidad pública.' },
+            { id: 'hogar', title: 'Hogar', volume: 8.2, color: '#f59e0b', desc: 'Muy estable gracias a la vinculación con el sector hipotecario bancario.' },
+            { id: 'vida', title: 'Vida', volume: 25.1, color: '#8b5cf6', desc: 'Incluye Riesgo y Ahorro. Altamente dependiente de los tipos de interés.' }
         ];
 
         // --- INICIALIZAR GRÁFICOS ---
         window.addEventListener('DOMContentLoaded', () => {
-            // Market Chart
+            // Market Share
             new Chart(document.getElementById('marketShareChart'), {
                 type: 'doughnut',
-                data: { labels: ['No Vida', 'Vida'], datasets: [{ data: [39.5, 25.1], backgroundColor: ['#0033a0', '#00a3e0'], borderWidth: 0 }] },
-                options: { responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: { legend: { position: 'bottom' } } }
+                data: { 
+                    labels: ['No Vida', 'Vida'], 
+                    datasets: [{ data: [39.5, 25.1], backgroundColor: ['#0033a0', '#00a3e0'], borderWidth: 0, hoverOffset: 10 }] 
+                },
+                options: { responsive: true, maintainAspectRatio: false, cutout: '75%', plugins: { legend: { position: 'bottom' } } }
             });
 
-            // FIATC Growth Chart
+            // FIATC Growth
             new Chart(document.getElementById('fiatcGrowthChart'), {
                 type: 'line',
-                data: { labels: ['2019', '2020', '2021', '2022', '2023'], datasets: [{ label: 'M€', data: [680, 715, 765, 810, 855], borderColor: '#0033a0', tension: 0.3, fill: true, backgroundColor: 'rgba(0,51,160,0.05)' }] },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+                data: { 
+                    labels: ['2019', '2020', '2021', '2022', '2023'], 
+                    datasets: [{ label: 'Primas M€', data: [680, 715, 765, 810, 855], borderColor: '#0033a0', borderWidth: 4, tension: 0.3, fill: true, backgroundColor: 'rgba(0,51,160,0.03)', pointRadius: 4, pointBackgroundColor: '#0033a0' }] 
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { min: 600 } } }
             });
 
             // Categorías Interactivas
@@ -213,10 +234,10 @@
             const detailsContainer = document.getElementById('category-details');
             categoryData.forEach(cat => {
                 const btn = document.createElement('button');
-                btn.className = 'w-full text-left px-4 py-3 rounded-lg border border-slate-200 bg-white font-medium hover:bg-slate-50 transition-all flex justify-between';
-                btn.innerHTML = `<span>${cat.title}</span> <span class="font-bold">€${cat.volume}B</span>`;
+                btn.className = 'w-full text-left px-5 py-4 rounded-xl border border-slate-100 bg-white font-bold text-slate-700 hover:border-primary/30 hover:shadow-md transition-all flex justify-between items-center group';
+                btn.innerHTML = `<span>${cat.title}</span> <span class="text-xs bg-slate-50 px-3 py-1 rounded-full group-hover:text-primary transition-colors italic">€${cat.volume}B</span>`;
                 btn.onclick = () => {
-                    detailsContainer.innerHTML = `<h3 class="text-2xl font-bold mb-4" style="color:${cat.color}">${cat.title}</h3><p class="text-lg text-slate-600 leading-relaxed">${cat.desc}</p>`;
+                    detailsContainer.innerHTML = `<div class="animate-in fade-in slide-in-from-bottom-2 duration-500"><h3 class="text-3xl font-black mb-4 italic" style="color:${cat.color}">${cat.title}</h3><p class="text-xl text-slate-600 leading-relaxed font-medium">${cat.desc}</p></div>`;
                 };
                 buttonsContainer.appendChild(btn);
             });
@@ -226,7 +247,7 @@
         // --- FUNCIÓN DEL ASISTENTE ---
         function abrirGem() {
             const url = "https://gemini.google.com/gem/1LH9YAceFOV7GT3i0LDKMOHrR43rloiE9?usp=sharing";
-            const width = 600, height = 850;
+            const width = 620, height = 850;
             const left = (window.screen.width / 2) - (width / 2);
             const top = (window.screen.height / 2) - (height / 2);
             window.open(url, "FIATC_Jirada_AI", `width=${width},height=${height},top=${top},left=${left},status=no,menubar=no,toolbar=no,scrollbars=yes,resizable=yes`);
