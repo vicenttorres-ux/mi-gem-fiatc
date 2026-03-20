@@ -1,116 +1,236 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FIATC x Jirada | IA Estratégica</title>
+    <title>Dashboard Seguros & FIATC Assistant by Jirada</title>
+    
+    <!-- Tailwind CSS y Fuentes -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0033a0',
+                        secondary: '#00a3e0',
+                        fiatcBlue: '#0055A5',
+                        background: '#f8fafc',
+                        surface: '#ffffff',
+                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+
     <style>
         body { font-family: 'Inter', sans-serif; }
-        .mesh-bg {
-            background-color: #ffffff;
-            background-image: 
-                radial-gradient(at 0% 0%, rgba(0, 85, 165, 0.08) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(0, 85, 165, 0.03) 0px, transparent 50%);
-        }
-        .glass {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-        .fade-in {
-            animation: fadeIn 0.8s ease-out forwards;
-            opacity: 0;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .chart-container { position: relative; width: 100%; max-width: 800px; margin: auto; height: 300px; }
+        @media (min-width: 768px) { .chart-container { height: 380px; } }
+        
+        /* Estilos del Microsite Assistant */
+        .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.3); }
+        .fade-in { animation: fadeIn 0.8s ease-out forwards; opacity: 0; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         .delay-1 { animation-delay: 0.2s; }
         .delay-2 { animation-delay: 0.4s; }
+        
+        .mesh-bg {
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(0, 85, 165, 0.05) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(0, 85, 165, 0.02) 0px, transparent 50%);
+        }
     </style>
 </head>
-<body class="mesh-bg min-h-screen flex flex-col">
+<body class="bg-background text-slate-800 antialiased mesh-bg">
 
-    <!-- Navegación Flotante con Co-Branding -->
-    <nav class="fixed top-4 left-1/2 -translate-x-1/2 w-[90%] max-w-5xl z-50">
-        <div class="glass rounded-2xl px-6 py-3 flex justify-between items-center shadow-xl">
-            <!-- Bloque de Logos -->
-            <div class="flex items-center gap-4">
-                <!-- Logo FIATC -->
-                <img src="logo-fiatc.png" alt="FIATC" class="h-8 md:h-9">
-                
-                <!-- Divisor -->
-                <div class="h-6 w-[1px] bg-slate-300"></div>
-                
-                <!-- Logo Jirada -->
-                <img src="logo-jirada.png" alt="Jirada" class="h-5 md:h-6">
-            </div>
-
-            <!-- Etiqueta de versión -->
-            <div class="hidden sm:flex items-center gap-2">
-                <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest border border-slate-200 px-2 py-1 rounded">Internal Tool v1.5</span>
+    <!-- Navegación Unificada -->
+    <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-md border-b border-slate-200 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-4">
+                    <img src="logo-fiatc.png" alt="FIATC" class="h-8">
+                    <div class="h-6 w-[1px] bg-slate-200 hidden md:block"></div>
+                    <img src="logo-jirada.png" alt="Jirada" class="h-5 hidden md:block">
+                </div>
+                <div class="hidden lg:flex items-center space-x-6 text-sm font-semibold text-slate-500">
+                    <a href="#mercado" class="hover:text-primary transition-colors">Mercado Global</a>
+                    <a href="#categorias" class="hover:text-primary transition-colors">Categorías</a>
+                    <a href="#fiatc" class="hover:text-primary transition-colors">Análisis FIATC</a>
+                    <a href="#asistente-ia" class="bg-primary text-white px-4 py-2 rounded-full hover:bg-blue-800 transition-all shadow-lg shadow-blue-100 italic">Asistente IA</a>
+                </div>
             </div>
         </div>
     </nav>
 
-    <!-- Contenido Hero -->
-    <main class="flex-grow flex flex-col items-center justify-center px-6 pt-32 pb-20">
-        <div class="max-w-4xl w-full text-center relative">
-            
-            <div class="fade-in inline-flex items-center gap-2 px-3 py-1 bg-blue-50 rounded-full text-[10px] font-bold text-blue-700 uppercase tracking-[0.2em] mb-10">
-                Estrategia impulsada por IA
-            </div>
+    <main class="pt-24">
+        <!-- HEADER DASHBOARD -->
+        <header class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 text-center">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-primary mb-4">Ecosistema de Seguros en España</h1>
+            <p class="text-lg text-slate-500 max-w-3xl mx-auto">Análisis de datos del mercado y visión estratégica de FIATC.</p>
+        </header>
 
-            <h1 class="fade-in delay-1 text-5xl md:text-7xl font-extrabold text-slate-900 leading-[1.1] tracking-tighter mb-10">
-             FIATC Assitant <br>
-                <span class="text-blue-700 italic">by Jirada</span>
-            </h1>
-
-            <p class="fade-in delay-2 text-xl md:text-2xl text-slate-600 mb-12 max-w-3xl mx-auto leading-relaxed font-medium">
-                Todo el conocimiento de FIATC en un solo chat. <br class="hidden md:block">
-                <span class="text-slate-900">El consultor experto</span> que conoce nuestro ADN mejor que nadie para guiar su estrategia.
-            </p>
-            
-            <!-- Botón -->
-            <div class="fade-in delay-2">
-                <button onclick="abrirGem()" class="bg-blue-700 hover:bg-blue-800 text-white px-12 py-5 rounded-2xl font-bold text-xl transition-all transform hover:-translate-y-1 shadow-2xl flex items-center gap-4 mx-auto group">
-                    <span>INICIAR CONSULTORÍA</span>
-                    <div class="bg-blue-600 p-1 rounded-lg group-hover:translate-x-1 transition-transform">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                        </svg>
+        <!-- SECCIÓN 1: MERCADO GLOBAL (DASHBOARD) -->
+        <section id="mercado" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 scroll-mt-24">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8">
+                <h2 class="text-2xl font-bold mb-6">Visión General del Mercado</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                    <div class="bg-blue-50 p-6 rounded-xl border border-blue-100">
+                        <div class="text-xs font-bold text-blue-600 uppercase mb-1">Volumen Total Primas</div>
+                        <div class="text-4xl font-bold">€64.6B</div>
                     </div>
-                </button>
-                <p class="mt-6 text-[10px] text-slate-400 uppercase tracking-[0.3em] font-bold italic">Acceso exclusivo vía Google Gemini</p>
+                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-100">
+                        <div class="text-xs font-bold text-slate-500 uppercase mb-1">Peso en el PIB</div>
+                        <div class="text-4xl font-bold">5.3%</div>
+                    </div>
+                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-100">
+                        <div class="text-xs font-bold text-slate-500 uppercase mb-1">Ramo No Vida</div>
+                        <div class="text-4xl font-bold">61%</div>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="marketShareChart"></canvas>
+                </div>
             </div>
-        </div>
+        </section>
+
+        <!-- SECCIÓN 2: CATEGORÍAS (DASHBOARD INTERACTIVO) -->
+        <section id="categorias" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 scroll-mt-24">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-8">
+                <h2 class="text-2xl font-bold mb-8 text-center">Uso y Adopción por Categoría</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    <div class="lg:col-span-4 space-y-2" id="category-buttons"></div>
+                    <div class="lg:col-span-8 bg-slate-50 rounded-xl border border-slate-200 p-8 min-h-[300px]" id="category-details"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: ANÁLISIS FIATC -->
+        <section id="fiatc" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20 scroll-mt-24">
+            <div class="bg-gradient-to-br from-[#0033a0] to-[#001f60] rounded-2xl p-8 md:p-12 text-white">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10">
+                    <h2 class="text-3xl font-bold">Enfoque FIATC Seguros</h2>
+                    <div class="bg-white/10 px-4 py-2 rounded-lg text-sm font-bold border border-white/20">Primas: > €850 Millones</div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-6">
+                        <p class="text-blue-100 text-lg">Mutua multirramo líder con infraestructura propia de salud (Clínica Diagonal), con un fuerte enfoque en calidad asistencial y mediación profesional.</p>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-white/5 p-4 rounded-xl border border-white/10">
+                                <div class="text-[10px] uppercase font-bold opacity-60">Red Comercial</div>
+                                <div class="text-2xl font-bold">+5.000 Mediadores</div>
+                            </div>
+                            <div class="bg-white/5 p-4 rounded-xl border border-white/10">
+                                <div class="text-[10px] uppercase font-bold opacity-60">Posición</div>
+                                <div class="text-2xl font-bold">Top 20 España</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl p-4 shadow-2xl chart-container !h-[250px]">
+                        <canvas id="fiatcGrowthChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 4: EL ASISTENTE IA (LO QUE ME HAS PASADO) -->
+        <section id="asistente-ia" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20 scroll-mt-24">
+            <div class="relative overflow-hidden rounded-[3rem] bg-white border border-slate-200 shadow-2xl py-20 px-6 text-center">
+                <!-- Decoración -->
+                <div class="absolute -top-24 -right-24 w-96 h-96 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-50"></div>
+                
+                <div class="max-w-4xl w-full mx-auto relative z-10">
+                    <div class="fade-in inline-flex items-center gap-2 px-3 py-1 bg-blue-50 rounded-full text-[10px] font-bold text-blue-700 uppercase tracking-[0.2em] mb-10">
+                        Estrategia impulsada por IA
+                    </div>
+
+                    <h1 class="fade-in delay-1 text-5xl md:text-7xl font-extrabold text-slate-900 leading-[1.1] tracking-tighter mb-10">
+                        FIATC Assistant <br>
+                        <span class="text-primary italic">by Jirada</span>
+                    </h1>
+
+                    <p class="fade-in delay-2 text-xl md:text-2xl text-slate-600 mb-12 max-w-3xl mx-auto leading-relaxed font-medium">
+                        Todo el conocimiento de FIATC en un solo chat. <br class="hidden md:block text-slate-400">
+                        <span class="text-slate-900 font-bold">El consultor experto</span> que conoce nuestro ADN mejor que nadie para guiar su estrategia.
+                    </p>
+                    
+                    <button onclick="abrirGem()" class="fade-in delay-2 bg-primary hover:bg-blue-800 text-white px-12 py-5 rounded-2xl font-bold text-xl transition-all transform hover:-translate-y-1 shadow-2xl flex items-center gap-4 mx-auto group">
+                        <span>INICIAR CONSULTORÍA</span>
+                        <div class="bg-blue-600 p-1 rounded-lg group-hover:translate-x-1 transition-transform">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                        </div>
+                    </button>
+                    <p class="fade-in delay-2 mt-6 text-[10px] text-slate-400 uppercase tracking-[0.3em] font-bold italic">Acceso exclusivo vía Google Gemini</p>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="p-12 text-center">
+    <!-- FOOTER UNIFICADO -->
+    <footer class="p-12 text-center bg-white border-t border-slate-100">
         <div class="flex justify-center items-center gap-6 opacity-30 grayscale mb-6">
             <img src="logo-fiatc.png" alt="FIATC" class="h-5">
             <img src="logo-jirada.png" alt="Jirada" class="h-4">
         </div>
         <p class="text-[9px] tracking-[0.5em] font-bold text-slate-400 uppercase">
-            © 2024 FIATC Seguros x Jirada Digital Strategy
+            © 2024 FIATC Mutua de Seguros x Jirada Digital Strategy
         </p>
     </footer>
 
+    <!-- SCRIPTS UNIFICADOS -->
     <script>
+        // --- DATA PARA DASHBOARD ---
+        const categoryData = [
+            { id: 'autos', title: 'Autos', volume: 11.5, color: '#3b82f6', desc: 'Ramo obligatorio y altamente competitivo en España.' },
+            { id: 'salud', title: 'Salud', volume: 10.5, color: '#10b981', desc: 'Crecimiento récord impulsado por la sanidad privada.' },
+            { id: 'hogar', title: 'Hogar', volume: 8.2, color: '#f59e0b', desc: 'Vinculado fuertemente a la cartera hipotecaria bancaria.' },
+            { id: 'vida', title: 'Vida', volume: 25.1, color: '#8b5cf6', desc: 'Segmento clave de ahorro e inversión para las familias.' }
+        ];
+
+        // --- INICIALIZAR GRÁFICOS ---
+        window.addEventListener('DOMContentLoaded', () => {
+            // Market Chart
+            new Chart(document.getElementById('marketShareChart'), {
+                type: 'doughnut',
+                data: { labels: ['No Vida', 'Vida'], datasets: [{ data: [39.5, 25.1], backgroundColor: ['#0033a0', '#00a3e0'], borderWidth: 0 }] },
+                options: { responsive: true, maintainAspectRatio: false, cutout: '70%', plugins: { legend: { position: 'bottom' } } }
+            });
+
+            // FIATC Growth Chart
+            new Chart(document.getElementById('fiatcGrowthChart'), {
+                type: 'line',
+                data: { labels: ['2019', '2020', '2021', '2022', '2023'], datasets: [{ label: 'M€', data: [680, 715, 765, 810, 855], borderColor: '#0033a0', tension: 0.3, fill: true, backgroundColor: 'rgba(0,51,160,0.05)' }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+            });
+
+            // Categorías Interactivas
+            const buttonsContainer = document.getElementById('category-buttons');
+            const detailsContainer = document.getElementById('category-details');
+            categoryData.forEach(cat => {
+                const btn = document.createElement('button');
+                btn.className = 'w-full text-left px-4 py-3 rounded-lg border border-slate-200 bg-white font-medium hover:bg-slate-50 transition-all flex justify-between';
+                btn.innerHTML = `<span>${cat.title}</span> <span class="font-bold">€${cat.volume}B</span>`;
+                btn.onclick = () => {
+                    detailsContainer.innerHTML = `<h3 class="text-2xl font-bold mb-4" style="color:${cat.color}">${cat.title}</h3><p class="text-lg text-slate-600 leading-relaxed">${cat.desc}</p>`;
+                };
+                buttonsContainer.appendChild(btn);
+            });
+            buttonsContainer.firstChild.click();
+        });
+
+        // --- FUNCIÓN DEL ASISTENTE ---
         function abrirGem() {
             const url = "https://gemini.google.com/gem/1LH9YAceFOV7GT3i0LDKMOHrR43rloiE9?usp=sharing";
-            const width = 600;
-            const height = 850;
+            const width = 600, height = 850;
             const left = (window.screen.width / 2) - (width / 2);
             const top = (window.screen.height / 2) - (height / 2);
             window.open(url, "FIATC_Jirada_AI", `width=${width},height=${height},top=${top},left=${left},status=no,menubar=no,toolbar=no,scrollbars=yes,resizable=yes`);
         }
     </script>
-
 </body>
 </html>
-
