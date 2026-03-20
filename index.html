@@ -312,3 +312,21 @@
                             <div class="flex flex-wrap gap-2">
                                 ${cat.trends.map(t => `<span class="bg-white border border-slate-200 px-3 py-1 rounded-full text-xs font-bold text-slate-400 uppercase tracking-tighter italic"># ${t}</span>`).join('')}
                             </div>
+                        </div>`;
+                };
+                buttonsContainer.appendChild(btn);
+            });
+            buttonsContainer.firstChild.click();
+        });
+
+        // --- 4. FUNCIÓN DEL ASISTENTE ---
+        function abrirGem() {
+            const url = "https://gemini.google.com/gem/1LH9YAceFOV7GT3i0LDKMOHrR43rloiE9?usp=sharing";
+            const width = 620, height = 850;
+            const left = (window.screen.width / 2) - (width / 2);
+            const top = (window.screen.height / 2) - (height / 2);
+            window.open(url, "FIATC_Jirada_AI", `width=${width},height=${height},top=${top},left=${left},status=no,menubar=no,toolbar=no,scrollbars=yes,resizable=yes`);
+        }
+    </script>
+</body>
+</html>
